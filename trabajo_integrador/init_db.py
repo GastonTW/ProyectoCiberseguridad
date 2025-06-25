@@ -14,7 +14,13 @@ c.execute("""
 CREATE TABLE brainrot (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT,
-    imagen TEXT
+    imagen TEXT,
+    fuerza INTEGER,
+    velocidad INTEGER,
+    resistencia INTEGER,
+    inteligencia INTEGER,
+    carisma INTEGER,
+    aura INTEGER
 )
 """)
 
@@ -28,10 +34,14 @@ CREATE TABLE users (
 """)
 
 # Datos
-c.executemany("INSERT INTO brainrot (nombre, imagen) VALUES (?, ?)", [
-    ("Tung", "img1.png"),
-    ("Tralalero", "img2.png"),
-])
+c.executemany(
+    "INSERT INTO brainrot (nombre, imagen, fuerza, velocidad, resistencia, inteligencia, carisma, aura) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+        ("Tung", "img1.png", 90, 10, 70, 10, 30, 100),
+        ("Tralalero", "img2.png", 70, 70, 40, 50, 10, 85),
+    ]
+)
+
 
 c.executemany("INSERT INTO users (username, password, role) VALUES (?, ?, ?)", [
     ("admin", "supersecret", "admin"),

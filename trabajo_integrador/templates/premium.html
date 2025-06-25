@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enfrentamiento Brainrot</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="container mt-5">
+
+    <h1 class="text-center mb-4">Enfrenta dos Brainrots</h1>
+
+    {% if error_message %}
+      <div class="alert alert-danger text-center">
+        <strong>{{ error_message }}</strong>
+      </div>
+    {% endif %}
+
+    <form method="POST" class="d-flex justify-content-center mb-4">
+      <input type="text" name="brainrot1" class="form-control mx-2" placeholder="Brainrot 1" required>
+      <span class="mx-2 fs-1 align-self-center">VS</span>
+      <input type="text" name="brainrot2" class="form-control mx-2" placeholder="Brainrot 2" required>
+      <button type="submit" class="btn btn-primary mx-2">Pelea</button>
+    </form>
+
+    {% if winner %}
+      <div class="alert alert-success text-center">
+        <h2 class="mb-3">¡Ganador!</h2>
+        <h3>{{ winner['nombre'] }}</h3>
+        <img src="{{ winner['imagen'] }}" alt="Imagen del ganador" class="img-fluid mt-3">
+      </div>
+    {% endif %}
+
+  </div>
+</body>
+</html>
