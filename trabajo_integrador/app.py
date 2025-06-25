@@ -47,8 +47,8 @@ def brainrot_search():
     nombre = request.args.get("nombre", "")
     conn = get_db_connection()
 
-    # ❌ vulnerable a SQLi
-    query = f"SELECT id, nombre, imagen FROM brainrot WHERE nombre LIKE '%{nombre}%'"
+    query = f"SELECT id, nombre, imagen FROM brainrot WHERE nombre LIKE '%{nombre}%' COLLATE NOCASE"
+
     try:
         rows = conn.execute(query).fetchall()
     except Exception as e:
@@ -64,9 +64,9 @@ def premium():
         conn = get_db_connection()
         cursor = conn.cursor()
         # Verificar si los brainrots existen en la base de datos
-        cursor.execute("SELECT * FROM brainrot WHERE nombre = ?", (brainrot1,))
+        cursor.execute("SELECT * FROM brainrot WHERE nombre = ? COLLATE NOCASE", (brainrot1,))
         row1 = cursor.fetchone()
-        cursor.execute("SELECT * FROM brainrot WHERE nombre = ?", (brainrot2,))
+        cursor.execute("SELECT * FROM brainrot WHERE nombre = ? COLLATE NOCASE", (brainrot2,))
         row2 = cursor.fetchone()
         if row1 and row2:
             winner = random.choice([row1, row2])
@@ -87,8 +87,8 @@ def estadisticas():
         nombre = request.form.get("nombre", "").strip()
         conn = get_db_connection()
         row = conn.execute("""
-            SELECT nombre, fuerza, velocidad, resistencia, inteligencia, carisma, aura
-            FROM brainrot WHERE nombre = ?
+            SELECT nombre, imagen, fuerza, velocidad, resistencia, inteligencia, carisma, aura
+            FROM brainrot WHERE nombre = ? COLLATE NOCASE
         """, (nombre,)).fetchone()
         conn.close()
 
@@ -99,13 +99,16 @@ def estadisticas():
 
 @app.route('/search')
 def search():
-    query = request.args.get('query', '')
+    query = request.args.get('query', '').strip()
     results = []
-    for key, value in movies.items():
-        if query.lower() in value['title'].lower():
-            results.append({'title': value['title'], 'image': value['image']})
+
+    if query:
+        for _, value in movies.items():
+            if query.lower() in value['title'].lower():
+                results.append({'title': value['title'], 'image': value['image']})
 
     return render_template('search.html', query=query, results=results)
+
 
 @app.route('/admin/debug/mostrar/<int:id>')
 def mostrar_brainrot(id):

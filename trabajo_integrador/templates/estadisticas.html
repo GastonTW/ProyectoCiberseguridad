@@ -1,13 +1,6 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Estadísticas Brainrot</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-  <div class="container py-5">
+{% extends 'base.html' %}
+
+{% block content %}
     <h1 class="text-center mb-4">📊 Estadísticas de Brainrot</h1>
 
     <form method="POST" class="input-group mb-4 justify-content-center">
@@ -26,9 +19,12 @@
         <div class="alert alert-warning text-center">{{ stats.error }}</div>
       {% else %}
         <div class="card mx-auto" style="max-width:500px;">
-          <div class="card-body">
-            <h4 class="card-title text-center mb-3">{{ stats.nombre }}</h4>
-            <ul class="list-group list-group-flush">
+          <div class="card-body text-center">
+            <h4 class="card-title mb-3">{{ stats.nombre }}</h4>
+            <div class="card card-full img-container">
+              <img src="{{ url_for('static', filename='brainrots/' ~ stats.imagen) }}" alt="Imagen de {{ stats.nombre }}" class="img-fluid">
+            </div>
+            <ul class="list-group list-group-flush text-start">
               <li class="list-group-item">Fuerza: {{ stats.fuerza }}</li>
               <li class="list-group-item">Velocidad: {{ stats.velocidad }}</li>
               <li class="list-group-item">Resistencia: {{ stats.resistencia }}</li>
@@ -42,6 +38,4 @@
     {% endif %}
 
     <a href="{{ url_for('home') }}" class="btn btn-secondary mt-4 d-block mx-auto">Volver al inicio</a>
-  </div>
-</body>
-</html>
+{% endblock %}
