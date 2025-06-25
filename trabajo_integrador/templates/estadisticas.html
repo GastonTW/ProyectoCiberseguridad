@@ -1,41 +1,42 @@
 {% extends 'base.html' %}
 
+{% block title %}Estadísticas de {{ stats.nombre }}{% endblock %}
+
 {% block content %}
-    <h1 class="text-center mb-4">📊 Estadísticas de Brainrot</h1>
+<h1 class="text-center mb-4">📊 Estadísticas de {{ stats.nombre }}</h1>
 
-    <form method="POST" class="input-group mb-4 justify-content-center">
-      <input type="text" name="nombre" class="form-control" placeholder="Buscar brainrot por nombre" required>
-      <button type="submit" class="btn btn-primary">Buscar</button>
-    </form>
+<form method="POST" class="input-group mb-4 justify-content-center">
+  <input type="text" name="nombre" class="form-control" placeholder="Buscar brainrot…" required value="{{ query }}">
+  <button class="btn btn-primary" type="submit">Buscar</button>
+</form>
 
-    <div id="msg-container" class="text-center mb-4"></div>
-
-    {% if query %}
-      <p>Resultados para: <strong>{{ query | safe }}</strong></p>
-    {% endif %}
-
-    {% if stats %}
-      {% if stats.error %}
-        <div class="alert alert-warning text-center">{{ stats.error }}</div>
-      {% else %}
-        <div class="card mx-auto" style="max-width:500px;">
-          <div class="card-body text-center">
-            <h4 class="card-title mb-3">{{ stats.nombre }}</h4>
-            <div class="card card-full img-container">
-              <img src="{{ url_for('static', filename='brainrots/' ~ stats.imagen) }}" alt="Imagen de {{ stats.nombre }}" class="img-fluid">
-            </div>
-            <ul class="list-group list-group-flush text-start">
-              <li class="list-group-item">Fuerza: {{ stats.fuerza }}</li>
-              <li class="list-group-item">Velocidad: {{ stats.velocidad }}</li>
-              <li class="list-group-item">Resistencia: {{ stats.resistencia }}</li>
-              <li class="list-group-item">Inteligencia: {{ stats.inteligencia }}</li>
-              <li class="list-group-item">Carisma: {{ stats.carisma }}</li>
-              <li class="list-group-item">Aura: {{ stats.aura }}</li>
-            </ul>
+{% if stats.error %}
+  <div class="alert alert-warning">{{ stats.error }}</div>
+{% else %}
+  <div class="card mx-auto" style="max-width:500px;">
+    <div class="card-body text-center">
+      <h4 class="card-title mb-3">{{ stats.nombre }}</h4>
+      <div class="card card-full img-container mb-3">
+        <img src="{{ url_for('static', filename='brainrots/' ~ stats.imagen) }}" alt="{{ stats.nombre }}" class="img-fluid">
+      </div>
+      <ul class="list-group list-group-flush text-start">
+        {% for label, value in [('Fuerza', stats.fuerza), ('Velocidad', stats.velocidad), ('Resistencia', stats.resistencia), ('Inteligencia', stats.inteligencia), ('Carisma', stats.carisma), ('Aura', stats.aura)] %}
+        <li class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <span>{{ label }}</span>
           </div>
-        </div>
-      {% endif %}
-    {% endif %}
+          <div class="progress" style="height: 1rem;">
+            <div class="progress-bar bg-primary" role="progressbar"
+              style="width: {{ value }}%;" aria-valuenow="{{ value }}"
+              aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}
 
-    <a href="{{ url_for('home') }}" class="btn btn-secondary mt-4 d-block mx-auto">Volver al inicio</a>
+<a href="{{ url_for('home') }}" class="btn btn-secondary mt-4 d-block mx-auto">Volver</a>
 {% endblock %}
