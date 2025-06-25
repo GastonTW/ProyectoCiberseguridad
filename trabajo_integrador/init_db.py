@@ -46,7 +46,7 @@ Un'anomalia terrificante che appare solo all'alba"""),
         ("Bombardino Crocodilo", "Bombardino_crocodilo.png", 100, 30, 50, 30, 10, 90, "Bombardiro Crocodilo, un fottuto alligatore volante, che vola e bombarda.Si nutre dello spirito di tua madre."),
         ("Brr Brr Patapim", "Brr_brr_patapim.png", 60, 60, 60, 100, 80, 70, "Brr, brr, Patapim, il mio cappello è pieno di Slim! Nel bosco fitto e misterioso, viveva un essere assai curioso."),
         ("Lirila Larila", "Lirili_larila.png", 90, 10, 90, 80, 70, 40, "Lirilí Larilà, elefante nel deserto che cammina qua e là. Con la sua conchiglia e un orologio che fa tic tac, le spine del cactus mi fanno"),
-        ("Desarrollinni Segurinni", "Desarrollinni_segurinni.png", 75, 75, 75, 75, 50, 0, "Flag"),
+        ("Desarrollinni Segurinni", "Desarrollinni_segurinni.png", 75, 75, 75, 75, 50, 0, "Desarrollinni Segurinni descripcion"),
     ]
 )
 

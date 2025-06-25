@@ -118,10 +118,14 @@ def mostrar_brainrot(id):
     brainrot = cursor.fetchone()
     conn.close()
 
-    if brainrot:
-        return render_template('mostrar_brainrot.html', brainrot=brainrot)
-    else:
+    if not brainrot:
         return "Brainrot no encontrado", 404
+
+    brainrot = list(brainrot)  # Convertimos a lista para poder modificar
+    if brainrot[0] == 7:
+        brainrot[9] = "flag{flag}"
+
+    return render_template('mostrar_brainrot.html', brainrot=brainrot)
 
 
 if __name__ == "__main__":
