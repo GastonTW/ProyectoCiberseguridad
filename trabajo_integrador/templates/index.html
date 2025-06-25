@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <!-- Estate atento a las pistas! -->
     <h1 class="text-primary">Estas preparado?</h1>
+    {% if session.role == 'premium' %}
+    <!-- Peleas no sirve para nada -->
+    <h3 class="text-secundary">Vas muy bien!</h3>
+    {% endif %}
+    {% if session.role == 'admin' %}
+    <!-- Por aca no hay nada -->
+    {% endif %}
 {% endblock %}

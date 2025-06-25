@@ -25,15 +25,12 @@
 <h1 class="text-center mb-4">Detalles del Brainrot</h1>
 
 <div class="row">
-  <!-- Imagen a la izquierda -->
   <div class="col-md-6 d-flex">
     <div class="card card-full img-container">
       <img src="{{ url_for('static', filename='brainrots/' ~ brainrot[2]) }}"
            alt="Imagen de {{ brainrot[1] }}">
     </div>
   </div>
-
-  <!-- Estadísticas y descripción a la derecha -->
   <div class="col-md-6 d-flex">
     <div class="card card-full w-100">
       <div class="card-body">
@@ -60,7 +57,7 @@
           {% endfor %}
         </ul>
 
-        <!-- Descripción -->
+        <!-- Descripción (MUY IMPORTANTE) -->
         {% if brainrot[9] %}
         <div class="mt-4">
           <h5>Descripción:</h5>
