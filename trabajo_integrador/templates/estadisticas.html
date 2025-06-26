@@ -7,26 +7,29 @@
 {% block content %}
 
 <script>
-  // Guardamos el alert original si no lo habíamos hecho ya
   if (!window.__realAlert) {
     window.__realAlert = window.alert;
-
-    // Redefinimos alert()
     window.alert = function(msg) {
-      // Acción secundaria: mostrar algo en la pantalla
-      const div = document.createElement("div");
-      div.style.position = "fixed";
-      div.style.bottom = "0";
-      div.style.left = "0";
-      div.style.background = "black";
-      div.style.color = "lime";
-      div.style.padding = "10px";
-      div.style.zIndex = "9999";
-      div.textContent = {{ secret|tojson }};
-      document.body.appendChild(div);
+      // Creamos alerta Bootstrap fija y centralizada
+      const alert = document.createElement('div');
+      alert.className = 'alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x';
+      alert.style.marginTop = '1rem';
+      alert.setAttribute('role', 'alert');
+      alert.innerHTML = `
+        <div><strong>¡LLegaste al final!</strong></div> <div> {{ secret|tojson }}</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+      `;
+      
+      document.body.appendChild(alert);
 
-      // Llamamos al alert original
-      return window.__realAlert(msg);
+      // Auto-cierre en 5s
+      setTimeout(() => {
+        alert.classList.remove('show');
+        alert.addEventListener('transitionend', () => alert.remove());
+      }, 60000);
+
+      // También mostramos el alert nativo
+      window.__realAlert(msg);
     };
   }
 </script>
