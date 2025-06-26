@@ -54,7 +54,7 @@ Editar el archivo /config/.env y cambiar el valor de FLAG:
 
 ` /config/.env `
 ``` 
-FLAG=CTF{ejemplo_de_flag}
+FLAG=flag{ejemplo_de_flag}
 ```
 
 Luego reiniciar el contenedor para aplicar los cambios.
@@ -137,28 +137,25 @@ Validación del rol y control de los datos antes de renderizar la vista:
 
 ```python
 #app.py
-@app.route("/premium", methods=["GET", "POST"])
-def premium():
+@app.route("/estadisticas", methods=["GET", "POST"])
+def estadisticas():
     role = session.get("role")
     if role not in ("premium", "admin"):
         return redirect(url_for("home"))
+    nombre = ""
+    stats = None
     if request.method == "POST":
-        brainrot1 = request.form["brainrot1"]
-        brainrot2 = request.form["brainrot2"]
+        nombre = request.form.get("nombre", "").strip()
         conn = get_db_connection()
-        cursor = conn.cursor()
-        # Verificar si los brainrots existen en la base de datos
-        cursor.execute("SELECT * FROM brainrot WHERE nombre = ? COLLATE NOCASE", (brainrot1,))
-        row1 = cursor.fetchone()
-        cursor.execute("SELECT * FROM brainrot WHERE nombre = ? COLLATE NOCASE", (brainrot2,))
-        row2 = cursor.fetchone()
-        if row1 and row2:
-            winner = random.choice([row1, row2])
-            return render_template("premium.html", brainrot1=row1, brainrot2=row2, winner=winner)
-        else:
-            error_message = "Uno o ambos brainrots no existen en la base de datos."
-            return render_template("premium.html", error_message=error_message)
-    return render_template("premium.html", brainrot1=None, brainrot2=None, winner=None)
+        row = conn.execute("""
+            SELECT nombre, imagen, fuerza, velocidad, resistencia, inteligencia, carisma, aura
+            FROM brainrot WHERE nombre = ? COLLATE NOCASE
+        """, (nombre,)).fetchone()
+        conn.close()
+
+        stats = dict(row) if row else {"nombre": nombre, "error": "No se encontró ese brainrot"}
+    secret = "Revisa /admin/debug/mostrar/"
+    return render_template("estadisticas.html", stats=stats, secret=secret)
 ```
 
 Y la vista solo muestra contenido confiable desde la base.
