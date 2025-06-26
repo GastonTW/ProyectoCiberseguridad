@@ -75,6 +75,7 @@ Ejemplo de comando con sqlmap:
 sqlmap -u "http://localhost:5000/?nombre=TEST" --method=POST --data="nombre=TEST" --dump -T brainrot -C nombre,contrasenia,rol
 
 ## 2. ✴️ XSS en /estadisticas
+
 Una vez logueado como premium, se accede al endpoint /estadisticas, el cual es vulnerable a XSS reflejado.
 
 Payload de ejemplo:
