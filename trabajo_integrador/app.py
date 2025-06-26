@@ -62,6 +62,9 @@ def brainrot_search():
 
 @app.route("/premium", methods=["GET", "POST"])
 def premium():
+    role = session.get("role")
+    if role not in ("premium", "admin"):
+        return redirect(url_for("home"))
     if request.method == "POST":
         brainrot1 = request.form["brainrot1"]
         brainrot2 = request.form["brainrot2"]
@@ -82,7 +85,8 @@ def premium():
 
 @app.route("/estadisticas", methods=["GET", "POST"])
 def estadisticas():
-    if session.get("role") != "premium":
+    role = session.get("role")
+    if role not in ("premium", "admin"):
         return redirect(url_for("home"))
 
     nombre = ""
