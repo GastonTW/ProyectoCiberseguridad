@@ -18,16 +18,23 @@ La aplicación se ejecuta dentro de un contenedor Docker para facilitar su despl
 
 ### Dockerfile
 FROM python:3.11-slim
+
 WORKDIR /app
+
 COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
+
 RUN python init_db.py
+
 EXPOSE 5000
 CMD ["python", "app.py"]
 
 ### Docker-compose.yml
 version: '3.8'
+
 services:
   web:
     build: .
