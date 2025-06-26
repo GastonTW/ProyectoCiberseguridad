@@ -92,7 +92,7 @@ Esto revela una pista oculta:
 *Revisá **/admin/debug/mostrar/***
 
 ## 3. 🚪 Broken Access Control
-Al acceder a la ruta `/admin/debug/mostrar/`, no pasará nada. Sin embargo, en `/admin/debug/mostrar/[id]` se mostrarán los datos de los diferentes personajes cargados; al ver los datos de "Desarrollinni Segurinni", se podrá ver la flag en el campo *descripción*. La vulnerabilidad resulta redundante, pues se puede acceder a esta pestaña ingresando desde el usuario *admin*, pero sí resulta necesaria de arreglar al hacer el parche.
+Al acceder a la ruta `/admin/debug/mostrar/`, no pasará nada. Sin embargo, en `/admin/debug/mostrar/[id]` se mostrarán los datos de los diferentes personajes cargados accediendo desde cualquier usuario, siendo que solo debería ser visible para el administrador. Al ver los datos de "Desarrollinni Segurinni", se podrá ver la flag en el campo *descripción*. La vulnerabilidad resulta redundante, pues se puede acceder a esta pestaña ingresando desde el usuario *admin*, pero sí resulta necesaria de arreglar al hacer el parche.
 
 ---
 
