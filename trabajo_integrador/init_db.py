@@ -53,9 +53,13 @@ Un'anomalia terrificante che appare solo all'alba"""),
 
 
 c.executemany("INSERT INTO users (username, password, role) VALUES (?, ?, ?)", [
-    ("admin", "supersecret", "admin"),
-    ("premium", "brbrpatapim", "premium"),
-    ("usuario1", "asd123", "user")
+    ("admin", "V4l!dCr@nk#920", "admin"),
+    ("usuario1", "C!trusZebra$31^", "user"),
+    ("premium", "xY7!Kq%tD8&l#", "premium"),
+    ("beta_user3", "9e#LuN!z$T0k&", "user"),
+    ("user_test1", "MiXeD123#@GrAv!ty", "user"),
+    ("qa_guest5", "JumP!n9$Carp#43", "user"),
+    ("usuario2", "Wh@cky#Maze*58!", "user")
 ])
 
 conn.commit()
