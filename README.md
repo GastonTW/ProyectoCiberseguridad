@@ -88,7 +88,7 @@ entrega_patch: versión corregida con buenas prácticas.
 
 En la rama entrega_patch se implementan los siguientes cambios:
 
-# 🔐 Parche 1 - SQL Injection
+## 🔐 Parche 1 - SQL Injection
 Uso de consultas parametrizadas para prevenir inyecciones:
 
 sql = "SELECT id, nombre, imagen FROM brainrot WHERE nombre LIKE ? COLLATE NOCASE"
@@ -102,7 +102,7 @@ if role not in ("premium", "admin"):
     return redirect(url_for("home"))
 Y la vista solo muestra contenido confiable desde la base.
 
-### 🚫 Parche 3 - Broken Access Control
+## 🚫 Parche 3 - Broken Access Control
 Chequeo estricto del rol admin antes de mostrar la flag:
 
 if role != "admin":
