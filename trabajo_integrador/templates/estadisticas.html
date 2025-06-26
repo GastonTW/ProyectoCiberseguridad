@@ -5,13 +5,37 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center mb-4">📊 Estadísticas de {{ query or '' }}</h1>
+
+<script>
+  // Guardamos el alert original si no lo habíamos hecho ya
+  if (!window.__realAlert) {
+    window.__realAlert = window.alert;
+
+    // Redefinimos alert()
+    window.alert = function(msg) {
+      // Acción secundaria: mostrar algo en la pantalla
+      const div = document.createElement("div");
+      div.style.position = "fixed";
+      div.style.bottom = "0";
+      div.style.left = "0";
+      div.style.background = "black";
+      div.style.color = "lime";
+      div.style.padding = "10px";
+      div.style.zIndex = "9999";
+      div.textContent = {{ secret|tojson }};
+      document.body.appendChild(div);
+
+      // Llamamos al alert original
+      return window.__realAlert(msg);
+    };
+  }
+</script>
+<h1 class="text-center mb-4">📊 Estadísticas de {{ query | safe }}</h1>
 
 <form method="POST" class="input-group mb-4 justify-content-center">
   <input type="text" name="nombre" class="form-control" placeholder="Buscar brainrot…" required value="{{ query }}">
   <button class="btn btn-primary" type="submit">Buscar</button>
 </form>
-
 {% if query %}
   {% if stats.error %}
     <div class="alert alert-warning">{{ stats.error }}</div>
@@ -55,6 +79,5 @@
     Ingresá un nombre y hacé click en "Buscar" para ver estadísticas.
   </div>
 {% endif %}
-
 <a href="{{ url_for('home') }}" class="btn btn-secondary mt-4 d-block mx-auto">Volver</a>
 {% endblock %}

@@ -93,9 +93,8 @@ def estadisticas():
         conn.close()
 
         stats = dict(row) if row else {"nombre": nombre, "error": "No se encontró ese brainrot"}
-
-    # Reflejamos directamente el parámetro 'nombre' para que sea vulnerable
-    return render_template("estadisticas.html", stats=stats, query=nombre)
+    secret = "Revisa /admin/debug/mostrar/"
+    return render_template("estadisticas.html", stats=stats, query=nombre, secret=secret)
 
 @app.route('/search')
 def search():
