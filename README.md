@@ -6,9 +6,9 @@ Aplicación vulnerable desarrollada como trabajo integrador para la materia **De
 
 ## 👨‍💻 Autores
 
-- Tobias Garcia  
+- Tobias García  
 - Ulises Pereira  
-- Gaston Triviño
+- Gastón Triviño
 
 ---
 
@@ -64,9 +64,9 @@ Luego reiniciar el contenedor para aplicar los cambios.
 ## 🔥 Forma de explotación
 
 ## 1. 🐍 SQL Injection (búsqueda)
-La aplicación es vulnerable a **SQL Injection** en el campo de búsqueda principal.
+La aplicación es vulnerable a **SQL Injection** en el campo de búsqueda principal de la página, que aparece en la pantalla de inicio o en la pestaña de búsqueda.
 
-Paso a paso:
+Paso a paso para utilizar esta vulnerabilidad:
 
 - Listar tabla users.
 - Extraer los usuarios y contraseñas.
@@ -82,17 +82,17 @@ Ejemplo de payload:
 
 ## 2. ✴️ XSS en /estadisticas
 
-Una vez logueado como premium, se accede a la funcion de estadisticas, la cual es vulnerable a **XSS reflejado**.
+Una vez logueado como premium, se accede a la funcion de *estadisticas*, la cual es vulnerable a **XSS reflejado**.
 
 Payload de ejemplo:
 
 ```<script>alert('1')</script>```
 
 Esto revela una pista oculta:
-Revisá **/admin/debug/mostrar/**
+*Revisá **/admin/debug/mostrar/***
 
 ## 3. 🚪 Broken Access Control
-Al acceder a la ruta `/admin/debug/mostrar/`, no pasara nada. Sin embargo en `/admin/debug/mostrar/[id]`, se mostraran los datos de los diferente brainrots cargados, cuando se llegue a "Desarrollinni Segurinni"  se podra ver la flag en el campo descripcion.
+Al acceder a la ruta `/admin/debug/mostrar/`, no pasará nada. Sin embargo, en `/admin/debug/mostrar/[id]` se mostrarán los datos de los diferentes personajes cargados; al ver los datos de "Desarrollinni Segurinni", se podrá ver la flag en el campo *descripción*. La vulnerabilidad resulta redundante, pues se puede acceder a esta pestaña ingresando desde el usuario *admin*, pero sí resulta necesaria de arreglar al hacer el parche.
 
 ---
 
@@ -133,7 +133,7 @@ def brainrot_search():
 ```
 
 ## 🛡️ Parche 2 - XSS
-Validación del rol y control de los datos antes de renderizar la vista:
+En la app, hay validación del rol y control de los datos antes de renderizar la vista:
 
 ```python
 #app.py
@@ -158,7 +158,7 @@ def estadisticas():
     return render_template("estadisticas.html", stats=stats, secret=secret)
 ```
 
-Y la vista solo muestra contenido confiable desde la base.
+En la vista, solo se muestra contenido confiable desde la base.
 ```html
 <!-- estadisticas.html -->
 {% extends 'base.html' %}
@@ -216,7 +216,7 @@ Y la vista solo muestra contenido confiable desde la base.
 ```
 
 ## 🚫 Parche 3 - Broken Access Control
-Chequeo estricto del rol admin antes de mostrar la flag:
+Chequeo estricto del rol admin antes de mostrar la página:
 
 ```python
 #app.py
