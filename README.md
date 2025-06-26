@@ -72,7 +72,7 @@ Iniciar sesión como un usuario con el rol premium.
 
 Ejemplo de comando con sqlmap:
 
-sqlmap -u "http://localhost:5000/?nombre=TEST" --method=POST --data="nombre=TEST" --dump -T brainrot -C nombre,contrasenia,rol
+- sqlmap -u "http://localhost:5000/?nombre=TEST" --method=POST --data="nombre=TEST" --dump -T brainrot -C nombre,contrasenia,rol
 
 ## 2. ✴️ XSS en /estadisticas
 
@@ -80,10 +80,9 @@ Una vez logueado como premium, se accede al endpoint /estadisticas, el cual es v
 
 Payload de ejemplo:
 
-<script>alert('1')</script>
+- <script>alert('1')</script>
 
 Esto revela una pista oculta:
-
 Revisá /admin/debug/mostrar/
 
 ## 3. 🚪 Broken Access Control
