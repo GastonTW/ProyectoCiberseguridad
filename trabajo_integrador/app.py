@@ -2,6 +2,10 @@
 from flask import Flask, request, render_template, redirect, url_for, session
 import sqlite3
 import random
+import os
+from dotenv import load_dotenv
+
+load_dotenv(dotenv_path="config/.env")  # carga FLAG desde ese archivo
 
 
 app = Flask(__name__)
@@ -122,7 +126,7 @@ def mostrar_brainrot(id):
 
     brainrot = list(brainrot)  # Convertimos a lista para poder modificar
     if brainrot[0] == 7:
-        brainrot[9] = "flag{flag}"
+         brainrot[9] = os.environ.get('FLAG')
 
     return render_template('mostrar_brainrot.html', brainrot=brainrot)
 
