@@ -37,7 +37,7 @@ services:
     
 ---
     
-##🏁 Cómo setear la flag
+## 🏁 Cómo setear la flag
 La flag final se define como una variable de entorno.
 
 Editar el archivo /config/.env y cambiar el valor de FLAG:
@@ -48,8 +48,9 @@ Luego reiniciar el contenedor para aplicar los cambios.
 
 ---
 
-###🔥 Forma de explotación
-##1. 🐍 SQL Injection (búsqueda)
+## 🔥 Forma de explotación
+
+## 1. 🐍 SQL Injection (búsqueda)
 La aplicación es vulnerable a SQL Injection en el campo de búsqueda principal.
 
 Paso a paso:
@@ -63,7 +64,7 @@ Iniciar sesión como un usuario con el rol premium.
 Ejemplo de comando con sqlmap:
 sqlmap -u "http://localhost:5000/?nombre=TEST" --method=POST --data="nombre=TEST" --dump -T brainrot -C nombre,contrasenia,rol
 
-##2. ✴️ XSS en /estadisticas
+## 2. ✴️ XSS en /estadisticas
 Una vez logueado como premium, se accede al endpoint /estadisticas, el cual es vulnerable a XSS reflejado.
 
 Payload de ejemplo:
@@ -71,14 +72,14 @@ Payload de ejemplo:
 Esto revela una pista oculta:
 Revisá /admin/debug/mostrar/
 
-##3. 🚪 Broken Access Control
+## 3. 🚪 Broken Access Control
 Al acceder a la ruta /admin/debug/mostrar/, si el atacante logra autenticarse como admin, obtiene la flag final.
 
 El endpoint presenta un control de acceso débil que permite saltarse validaciones si se conoce la URL.
 
 ---
 
-##🛠️ Código corregido (Parche)
+## 🛠️ Código corregido (Parche)
 El repositorio contiene dos ramas:
 
 entrega_vulnerable: versión original con fallos de seguridad.
