@@ -92,7 +92,9 @@ En la rama entrega_patch se implementan los siguientes cambios:
 Uso de consultas parametrizadas para prevenir inyecciones:
 
 sql = "SELECT id, nombre, imagen FROM brainrot WHERE nombre LIKE ? COLLATE NOCASE"
+
 param = f"%{nombre}%"
+
 rows = conn.execute(sql, (param,)).fetchall()
 
 ## 🛡️ Parche 2 - XSS
@@ -100,6 +102,7 @@ Validación del rol y control de los datos antes de renderizar la vista:
 
 if role not in ("premium", "admin"):
     return redirect(url_for("home"))
+
 Y la vista solo muestra contenido confiable desde la base.
 
 ## 🚫 Parche 3 - Broken Access Control
