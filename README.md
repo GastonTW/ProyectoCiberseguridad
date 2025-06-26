@@ -50,7 +50,9 @@ La flag final se define como una variable de entorno.
 Editar el archivo /config/.env y cambiar el valor de FLAG:
 
 /config/.env
+
 FLAG=CTF{ejemplo_de_flag}
+
 Luego reiniciar el contenedor para aplicar los cambios.
 
 ---
@@ -69,14 +71,18 @@ Extraer los usuarios y contraseñas.
 Iniciar sesión como un usuario con el rol premium.
 
 Ejemplo de comando con sqlmap:
+
 sqlmap -u "http://localhost:5000/?nombre=TEST" --method=POST --data="nombre=TEST" --dump -T brainrot -C nombre,contrasenia,rol
 
 ## 2. ✴️ XSS en /estadisticas
 Una vez logueado como premium, se accede al endpoint /estadisticas, el cual es vulnerable a XSS reflejado.
 
 Payload de ejemplo:
+
 <script>alert('1')</script>
+
 Esto revela una pista oculta:
+
 Revisá /admin/debug/mostrar/
 
 ## 3. 🚪 Broken Access Control
