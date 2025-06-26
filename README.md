@@ -54,7 +54,7 @@ Editar el archivo /config/.env y cambiar el valor de FLAG:
 
 ` /config/.env `
 ``` 
-FLAG=CTF{ejemplo_de_flag}
+FLAG=flag{ejemplo_de_flag}
 ```
 
 Luego reiniciar el contenedor para aplicar los cambios.
