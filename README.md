@@ -27,9 +27,6 @@ EXPOSE 5000
 CMD ["python", "app.py"]
 
 ### Docker-compose.yml
-yaml
-Copiar
-Editar
 version: '3.8'
 services:
   web:
@@ -37,6 +34,8 @@ services:
     ports:
       - "5000:5000"
     container_name: ctf_app_team_ptt
+    
+---
     
 ##🏁 Cómo setear la flag
 La flag final se define como una variable de entorno.
@@ -46,6 +45,8 @@ Editar el archivo /config/.env y cambiar el valor de FLAG:
 /config/.env
 FLAG=CTF{ejemplo_de_flag}
 Luego reiniciar el contenedor para aplicar los cambios.
+
+---
 
 ###🔥 Forma de explotación
 ##1. 🐍 SQL Injection (búsqueda)
@@ -74,6 +75,8 @@ Revisá /admin/debug/mostrar/
 Al acceder a la ruta /admin/debug/mostrar/, si el atacante logra autenticarse como admin, obtiene la flag final.
 
 El endpoint presenta un control de acceso débil que permite saltarse validaciones si se conoce la URL.
+
+---
 
 ##🛠️ Código corregido (Parche)
 El repositorio contiene dos ramas:
